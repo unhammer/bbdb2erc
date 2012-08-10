@@ -1,0 +1,25 @@
+* bbdb2erc.el
+Makes *BBDB* show if a pal is online with *ERC*, lets you click =i= to
+chat.
+
+Usage: put =(require 'bbdb2erc)= in your =~/.emacs=
+
+When the *BBDB* window pops up, the minibuffer should tell you if the
+person is online (otherwise it's silent). You can make it tell you
+again by pressing =I= in the bbdb window.
+
+This package also overrides the default binding of =i= in *BBDB* to
+start an ERC chat with the record at point. You can read the *BBDB*
+info manual by typing =M-x bbdb-info instead=, or return to the
+default binding with =(define-key bbdb-mode-map (kbd "i")
+'bbdb-info)=.
+
+If you use Gnus, you might also want to go straight from a
+summary/article to a chat with the sender, put this in your =~/.emacs=
+to achieve that: =(define-key gnus-summary-mode-map (kbd "i")
+'bbdb2erc-pm)=.
+
+Note: the prerequisite =erc-bbdb.el= is part of the =erc-5.3-extras=
+package, not part of standard emacs, it should be available from
+http://ftp.gnu.org/old-gnu/erc/ if it's not in your distro's package
+manager.
