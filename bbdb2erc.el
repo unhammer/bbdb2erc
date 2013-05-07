@@ -1,10 +1,10 @@
 ;;; bbdb2erc.el --- make bbdb show if pal is online with ERC, click i to chat
 
-;; Copyright (C) 2012 Kevin Brubeck Unhammer
+;; Copyright (C) 2012-2013 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
-;; Version: 0.1.0
-;; Keywords: IRC, chat, client, Internet
+;; Version: 0.1.1
+;; Keywords: IRC, contacts, chat, client, Internet
 
 ;; This file is not part of GNU Emacs.
 
