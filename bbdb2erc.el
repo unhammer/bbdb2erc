@@ -4,6 +4,7 @@
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
 ;; Version: 0.1.1
+;; Package-Requires: ((bbdb "2.35") (erc-bbdb "5.3"))
 ;; Keywords: IRC, contacts, chat, client, Internet
 
 ;; This file is not part of GNU Emacs.
@@ -39,6 +40,7 @@
 ;; ~/.emacs to achieve that:
 ;; (define-key gnus-summary-mode-map (kbd "i") 'bbdb2erc-pm)
 
+;; Not yet tested with BBDB version 3.
 
 
 ;;; Code:
