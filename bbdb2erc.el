@@ -3,8 +3,8 @@
 ;; Copyright (C) 2012-2013 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
-;; Version: 0.1.1
-;; Package-Requires: ((bbdb "2.35") (erc-bbdb "5.3"))
+;; Version: 0.1.2
+;; Package-Requires: ((bbdb "2.35"))
 ;; Keywords: IRC, contacts, chat, client, Internet
 
 ;; This file is not part of GNU Emacs.
@@ -46,7 +46,11 @@
 ;;; Code:
 
 (require 'bbdb)
-(require 'erc-bbdb)
+
+(defun bbdb2erc-nick-field ()
+  (if (boundp 'erc-bbdb-irc-nick-field)
+      erc-bbdb-irc-nick-field
+    "irc-nick"))
 
 (defun bbdb2erc-servers-of-nick (nick)
   (remove nil
@@ -61,8 +65,8 @@
   (interactive)
   (let* ((record (or record (bbdb-current-record)))
 	 (nicks (split-string
-		 (bbdb-get-field record erc-bbdb-irc-nick-field)
-		 (or (get erc-bbdb-irc-nick-field 'field-separator)
+		 (bbdb-get-field record (bbdb2erc-nick-field))
+		 (or (get (bbdb2erc-nick-field) 'field-separator)
 		     bbdb-notes-default-separator)))
 	 (servers
 	  (mapcar 'buffer-name
@@ -89,8 +93,8 @@ irc-nick field."
 		       (bbdb-current-record))
 		     current-prefix-arg))
   (let* ((nicks (split-string
-		 (bbdb-get-field record erc-bbdb-irc-nick-field)
-		 (or (get erc-bbdb-irc-nick-field 'field-separator)
+		 (bbdb-get-field record (bbdb2erc-nick-field))
+		 (or (get (bbdb2erc-nick-field) 'field-separator)
 		     bbdb-notes-default-separator)))
 	 (nick-servers
 	  (remove nil

@@ -19,7 +19,7 @@ summary/article to a chat with the sender, put this in your =~/.emacs=
 to achieve that: =(define-key gnus-summary-mode-map (kbd "i")
 'bbdb2erc-pm)=.
 
-Note: the prerequisite =erc-bbdb.el= is part of the =erc-5.3-extras=
-package, not part of standard emacs, it should be available from
-http://ftp.gnu.org/old-gnu/erc/ if it's not in your distro's package
-manager.
+Note: you should probably also install the package =erc-bbdb.el=, part
+of the =erc-5.3-extras= package, not in standard GNU Emacs. It should
+be available from http://ftp.gnu.org/old-gnu/erc/ if it's not in your
+distro's package manager.
