@@ -50,7 +50,9 @@
   (remove nil
 	  (erc-with-all-buffers-of-server nil
 	    #'erc-open-server-buffer-p
-	    (when (and erc-server-users (gethash (erc-downcase nick) erc-server-users))	
+	    (when (and erc-server-users
+		       (hash-table-p erc-server-users)
+		       (gethash (erc-downcase nick) erc-server-users))
 	      (erc-server-buffer)))))
 
 (defun bbdb2erc-online-status (&optional record)
