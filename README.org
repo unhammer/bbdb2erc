@@ -6,7 +6,9 @@ Usage: put =(require 'bbdb2erc)= in your =~/.emacs=
 
 When the *BBDB* window pops up, the minibuffer should tell you if the
 person is online (otherwise it's silent). You can make it tell you
-again by pressing =I= in the bbdb window.
+again by pressing =I= in the bbdb window. You specify the nick(s) of
+the person in the `irc-nick' field in BBDB, as in the erc-bbdb.el
+package.
 
 This package also overrides the default binding of =i= in *BBDB* to
 start an ERC chat with the record at point. You can read the *BBDB*
@@ -19,7 +21,10 @@ summary/article to a chat with the sender, put this in your =~/.emacs=
 to achieve that: =(define-key gnus-summary-mode-map (kbd "i")
 'bbdb2erc-pm)=.
 
+Not yet tested with BBDB version 3.
+
 Note: you should probably also install the package =erc-bbdb.el=, part
 of the =erc-5.3-extras= package, not in standard GNU Emacs. It should
 be available from http://ftp.gnu.org/old-gnu/erc/ if it's not in your
-distro's package manager.
+distro's package manager. Read more about it at
+http://www.emacswiki.org/emacs/ErcBbdb

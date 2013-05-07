@@ -28,7 +28,9 @@
 
 ;; When the bbdb window pops up, the minibuffer should tell you if the
 ;; person is online (otherwise it's silent). You can make it tell you
-;; again by pressing `I' in the bbdb window.
+;; again by pressing `I' in the bbdb window. You specify the nick(s)
+;; of the person in the `irc-nick' field in BBDB, as in the
+;; erc-bbdb.el package.
 
 ;; This package also overrides the default binding of `i' in bbdb to
 ;; start an ERC chat with the record at point. You can read the bbdb
