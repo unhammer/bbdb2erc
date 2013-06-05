@@ -3,8 +3,8 @@
 ;; Copyright (C) 2012-2013 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
-;; Version: 0.1.2
-;; Package-Requires: ((bbdb "2.35"))
+;; Version: 0.1.3
+;; Package-Requires: ((bbdb "3.0"))
 ;; Keywords: IRC, contacts, chat, client, Internet
 
 ;; This file is not part of GNU Emacs.
@@ -42,7 +42,6 @@
 ;; ~/.emacs to achieve that:
 ;; (define-key gnus-summary-mode-map (kbd "i") 'bbdb2erc-pm)
 
-;; Not yet tested with BBDB version 3.
 
 
 ;;; Code:
@@ -66,10 +65,8 @@
 (defun bbdb2erc-online-status (&optional record)
   (interactive)
   (let* ((record (or record (bbdb-current-record)))
-	 (nicks (split-string
-		 (bbdb-get-field record (bbdb2erc-nick-field))
-		 (or (get (bbdb2erc-nick-field) 'field-separator)
-		     bbdb-notes-default-separator)))
+	 (nicks (bbdb-split (bbdb2erc-nick-field)
+			    (bbdb-record-get-field record (bbdb2erc-nick-field))))
 	 (servers
 	  (mapcar 'buffer-name
 		  (delete-dups
@@ -94,10 +91,8 @@ irc-nick field."
   (interactive (list (with-current-buffer (get-buffer bbdb-buffer-name)
 		       (bbdb-current-record))
 		     current-prefix-arg))
-  (let* ((nicks (split-string
-		 (bbdb-get-field record (bbdb2erc-nick-field))
-		 (or (get (bbdb2erc-nick-field) 'field-separator)
-		     bbdb-notes-default-separator)))
+  (let* ((nicks (bbdb-split (bbdb2erc-nick-field)
+			    (bbdb-record-get-field record (bbdb2erc-nick-field))))
 	 (nick-servers
 	  (remove nil
 		  (mapcar (lambda (nick)
