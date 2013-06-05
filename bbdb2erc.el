@@ -63,6 +63,7 @@
 		       (gethash (erc-downcase nick) erc-server-users))
 	      (erc-server-buffer)))))
 
+;;;###autoload
 (defun bbdb2erc-online-status (&optional record)
   (interactive)
   (let* ((record (or record (bbdb-current-record)))
