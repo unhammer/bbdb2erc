@@ -21,7 +21,9 @@ summary/article to a chat with the sender, put this in your =~/.emacs=
 to achieve that: =(define-key gnus-summary-mode-map (kbd "i")
 'bbdb2erc-pm)=.
 
-Not yet tested with BBDB version 3.
+Requires BBDB version 3 (but see
+https://github.com/unhammer/bbdb2erc/tree/bbdb2 if you're still using
+BBDB version 2).
 
 Note: you should probably also install the package =erc-bbdb.el=, part
 of the =erc-5.3-extras= package, not in standard GNU Emacs. It should
