@@ -51,7 +51,7 @@
 (defun bbdb2erc-nick-field ()
   (if (boundp 'erc-bbdb-irc-nick-field)
       erc-bbdb-irc-nick-field
-    "irc-nick"))
+    'irc-nick))
 
 (defun bbdb2erc-servers-of-nick (nick)
   (remove nil
@@ -67,7 +67,7 @@
   (interactive)
   (let* ((record (or record (bbdb-current-record)))
 	 (nicks (bbdb-split (bbdb2erc-nick-field)
-			    (bbdb-record-get-field record (bbdb2erc-nick-field))))
+			    (bbdb-record-field record (bbdb2erc-nick-field))))
 	 (servers
 	  (mapcar 'buffer-name
 		  (delete-dups
@@ -93,7 +93,7 @@ irc-nick field."
 		       (bbdb-current-record))
 		     current-prefix-arg))
   (let* ((nicks (bbdb-split (bbdb2erc-nick-field)
-			    (bbdb-record-get-field record (bbdb2erc-nick-field))))
+			    (bbdb-record-field record (bbdb2erc-nick-field))))
 	 (nick-servers
 	  (remove nil
 		  (mapcar (lambda (nick)
