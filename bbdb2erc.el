@@ -1,6 +1,6 @@
 ;;; bbdb2erc.el --- make bbdb show if pal is online with ERC, click i to chat
 
-;; Copyright (C) 2012-2013 Kevin Brubeck Unhammer
+;; Copyright (C) 2012-2017 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
 ;; Version: 0.1.3
@@ -47,6 +47,13 @@
 ;;; Code:
 
 (require 'bbdb)
+(require 'erc)
+
+(defgroup bbdb2erc nil
+  "Open chats with bbdb contacts in ERC."
+  :link '(url-link "https://github.com/unhammer/bbdb2erc")
+  :prefix "bbdb2erc-"
+  :group 'applications)
 
 (defun bbdb2erc-nick-field ()
   (if (boundp 'erc-bbdb-irc-nick-field)
@@ -78,6 +85,15 @@
 
 (add-hook 'bbdb-notice-hook 'bbdb2erc-online-status)
 
+(defcustom bbdb2erc-join-buffer erc-join-buffer
+  "Like `erc-join-buffer' when used from `bbdb2erc-pm'."
+  :group 'bbdb2erc
+  :type '(choice (const :tag "Split window and select" window)
+                 (const :tag "Split window, don't select" window-noselect)
+                 (const :tag "New frame" frame)
+                 (const :tag "Bury in new buffer" bury)
+                 (const :tag "Use current buffer" buffer)
+                 (const :tag "Use current buffer" t)))
 
 ;;;###autoload
 (defun bbdb2erc-pm (record &optional prompt)
@@ -92,7 +108,8 @@ irc-nick field."
   (interactive (list (with-current-buffer (get-buffer bbdb-buffer-name)
 		       (bbdb-current-record))
 		     current-prefix-arg))
-  (let* ((nicks (bbdb-split (bbdb2erc-nick-field)
+  (let* ((erc-join-buffer bbdb2erc-join-buffer)
+         (nicks (bbdb-split (bbdb2erc-nick-field)
 			    (bbdb-record-field record (bbdb2erc-nick-field))))
 	 (nick-servers
 	  (remove nil
