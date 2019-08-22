@@ -1,9 +1,9 @@
 ;;; bbdb2erc.el --- make bbdb show if pal is online with ERC, click i to chat
 
-;; Copyright (C) 2012-2017 Kevin Brubeck Unhammer
+;; Copyright (C) 2012-2019 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
-;; Version: 0.1.3
+;; Version: 0.1.4
 ;; Package-Requires: ((bbdb "3.0"))
 ;; Keywords: IRC, contacts, chat, client, Internet
 
@@ -83,7 +83,7 @@
     (when servers
       (message "Online in %s" (mapconcat 'identity servers ", ")))))
 
-(add-hook 'bbdb-notice-hook 'bbdb2erc-online-status)
+(add-hook 'bbdb-notice-record-hook 'bbdb2erc-online-status)
 
 (defcustom bbdb2erc-join-buffer erc-join-buffer
   "Like `erc-join-buffer' when used from `bbdb2erc-pm'."
