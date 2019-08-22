@@ -3,7 +3,7 @@
 ;; Copyright (C) 2012-2019 Kevin Brubeck Unhammer
 
 ;; Author: Kevin Brubeck Unhammer <unhammer@fsfe.org>
-;; Version: 0.1.4
+;; Version: 0.1.5
 ;; Package-Requires: ((bbdb "3.0"))
 ;; Keywords: IRC, contacts, chat, client, Internet
 
@@ -73,8 +73,7 @@
 (defun bbdb2erc-online-status (&optional record)
   (interactive)
   (let* ((record (or record (bbdb-current-record)))
-	 (nicks (bbdb-split (bbdb2erc-nick-field)
-			    (bbdb-record-field record (bbdb2erc-nick-field))))
+	 (nicks (bbdb2erc-nicks record))
 	 (servers
 	  (mapcar 'buffer-name
 		  (delete-dups
@@ -82,6 +81,13 @@
 					  nicks))))))
     (when servers
       (message "Online in %s" (mapconcat 'identity servers ", ")))))
+
+(defun bbdb2erc-nicks (record)
+  "Return list of nicks of RECORD, if any."
+  (let ((nicks-value (bbdb-record-field record (bbdb2erc-nick-field))))
+    (when (stringp nicks-value)
+      (bbdb-split (bbdb2erc-nick-field)
+                  nicks-value))))
 
 (add-hook 'bbdb-notice-record-hook 'bbdb2erc-online-status)
 
@@ -109,8 +115,7 @@ irc-nick field."
 		       (bbdb-current-record))
 		     current-prefix-arg))
   (let* ((erc-join-buffer bbdb2erc-join-buffer)
-         (nicks (bbdb-split (bbdb2erc-nick-field)
-			    (bbdb-record-field record (bbdb2erc-nick-field))))
+	 (nicks (bbdb2erc-nicks record))
 	 (nick-servers
 	  (remove nil
 		  (mapcar (lambda (nick)
